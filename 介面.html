@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>假新聞辨識</title>
+        <style>
+            @import url(https://fonts.googleapis.com/css2?family=Lato&display=swap);
+            @import url(https://fonts.googleapis.com/css2?family=Open+Sans&display=swap);
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="w-full bg-cover bg-center min-h-screen relative overflow-hidden"
+                style="background-image: url('https://images.unsplash.com/photo-1585314062604-1a357de8b000?ixlib=rb-1.2.1&auto=format&fit=crop&w=1024&q=80');">
+                
+                <header class="py-6 px-8">
+                    <h1 class="text-blue-900 text-4xl font-bold text-center relative py-3 mb-8 transition-all duration-300 hover:scale-105"
+                        style="text-shadow: 2px 2px 20px rgb(255, 255, 255)">
+                        <span class="relative z-10">假新聞辨識</span>
+                        <span class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-30 text-primary-600 z-0">假新聞辨識</span>
+                    </h1>
+                    
+                    <nav class="flex justify-center gap-4 mt-12">
+                        <button type="button" class="px-6 py-3 bg-white/80 backdrop-blur-sm text-primary-700 rounded-lg shadow-lg transition-all duration-300 hover:bg-primary-700 hover:text-white hover:shadow-xl transform hover:-translate-y-1 focus:ring-4 font-semibold">
+                            關於我們
+                        </button>
+                        <button type="button" class="px-6 py-3 bg-primary-700 text-white rounded-lg shadow-lg transition-all duration-300 hover:bg-primary-800 hover:shadow-xl transform hover:-translate-y-1 focus:ring-4 font-semibold">
+                            查核
+                        </button>
+                        <button type="button" class="px-6 py-3 bg-white/80 backdrop-blur-sm text-primary-700 rounded-lg shadow-lg transition-all duration-300 hover:bg-primary-700 hover:text-white hover:shadow-xl transform hover:-translate-y-1 focus:ring-4 font-semibold">
+                            可靠新聞來源
+                        </button>
+                    </nav>
+                </header>
+                
+                <main class="px-8 py-6">
+                    <div class="bg-white/90 backdrop-blur-md rounded-xl p-8 shadow-xl transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1">
+                        <h2 class="text-2xl font-bold text-primary-800 mb-4">歡迎使用假新聞辨識系統</h2>
+                        <p class="text-gray-700 mb-6">
+                            在當今資訊爆炸的時代，辨別真假新聞變得越加重要。我們的網頁使用先進的人工智能技術，幫助您識別可能的虛假信息，提供可靠的新聞來源
+                        </p>
+                        
+                        <div class="mt-8 bg-primary-50 p-4 rounded-lg border border-primary-200">
+                            <h3 class="text-lg font-semibold text-primary-700 mb-2">快速查核</h3>
+                            <div class="flex gap-3">
+                                <input type="text" placeholder="請輸入新聞標題或內容..." class="flex-grow py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:border-primary-500 transition-all duration-300"/>
+                                <button type="submit" class="bg-primary-600 text-white py-2 px-6 rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                                    立即查核
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-6 mt-8">
+                        <div class="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-white/90 transform hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-primary-700 mb-3">如何辨識假新聞？</h3>
+                            <p class="text-gray-600">了解辨識假新聞的基本技巧和方法，提高媒體素養。</p>
+                            <button class="mt-4 text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300">
+                                了解更多 →
+                            </button>
+                        </div>
+                        
+                        <div class="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-white/90 transform hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-primary-700 mb-3">最新查核報告</h3>
+                            <p class="text-gray-600">查看我們最近發布的假新聞查核報告和分析。</p>
+                            <button class="mt-4 text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300">
+                                查看報告 →
+                            </button>
+                        </div>
+                        
+                        <div class="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-white/90 transform hover:-translate-y-1">
+                            <h3 class="text-xl font-semibold text-primary-700 mb-3">教育資源</h3>
+                            <p class="text-gray-600">提供數位素養和媒體識讀的教育資源和工具。</p>
+                            <button class="mt-4 text-primary-600 font-medium hover:text-primary-800 transition-colors duration-300">
+                                瀏覽資源 →
+                            </button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    fontFamily: {
+                        sans: ["Open Sans", "system-ui", "sans-serif"],
+                        title: ["Lato", "system-ui", "sans-serif"]
+                    },
+                    extend: {
+                        colors: {
+                            primary: {
+                                50: "#f3f1ff",
+                                200: "#d5cfff",
+                                500: "#7341ff",
+                                600: "#631bff",
+                                700: "#611bf8",
+                                800: "#4607d0",
+                                DEFAULT: "#611bf8"
+                            }
+                        }
+                    },
+                    borderRadius: {
+                        none: "0px",
+                        lg: "24px",
+                        xl: "36px"
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
