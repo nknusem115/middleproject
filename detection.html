@@ -315,9 +315,10 @@
 
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, #3a86ff, #8338ec);
             color: white;
-            padding: 2rem 0;
+            padding: 2rem 20px; /* 增加左右內邊距，與 .container 的 padding 保持一致 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-top: 4rem;
         }
 
@@ -325,6 +326,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1000px; /* 與 .container 的 max-width 保持一致 */
+            margin: 0 auto; /* 讓 footer 內容居中 */
         }
 
         .footer-links {
@@ -342,26 +345,6 @@
             color: var(--primary);
         }
 
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav ul {
-                margin-top: 1rem;
-            }
-
-            .grid-cols-3, .grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-        }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -378,7 +361,7 @@
                     <li><a href="index.html">首頁</a></li>
                     <li><a href="detection.html">查核數據</a></li>
                     <li><a href="education.html">知識庫</a></li>
-                    <li><a href="about.html">關於我們</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
                 </ul>
             </nav>
         </div>
@@ -544,10 +527,9 @@
     <footer>
         <div class="container footer-content">
             <div class="copyright">
-                © 2025 真相守門員 | 畢業專題
+                © 2025 真相守門員 | 查核數據頁面
             </div>
             <div class="footer-links">
-                <a href="about.html">關於我們</a>
                 <a href="#">隱私政策</a>
                 <a href="#">使用條款</a>
                 <a href="contact.html">聯絡我們</a>
