@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>統計分析 | 真相守門員</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #38b000;
+            --danger: #d90429;
+            --warning: #ffbe0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Page title section */
+        .page-title {
+            text-align: center;
+            margin: 2rem 0 3rem;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+
+        .tabs-list {
+            display: inline-flex;
+            height: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background-color: #f3f4f6;
+            padding: 0.25rem;
+        }
+
+        .tab {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cards */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .metric {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .trend {
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--danger);
+        }
+
+        /* Buttons */
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #f9fafb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .button-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .button-primary:hover {
+            background-color: #2a75e8;
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+        }
+
+        /* Chart placeholder */
+        .chart-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0;
+            border-radius: 8px;
+            background-color: #f9fafb;
+            border: 1px dashed #d1d5db;
+        }
+
+        .chart-icon {
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        .chart-text {
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .chart-subtext {
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* List items */
+        .list {
+            margin-top: 1.5rem;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #dbeafe;
+            color: var(--primary);
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .list-content {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .list-percentage {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            .grid-cols-3, .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-shield-alt logo-icon"></i>
+                真相守門員
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="detection.html">查核數據</a></li>
+                    <li><a href="education.html">知識庫</a></li>
+                    <li><a href="about.html">關於我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Page Title Section -->
+        <div class="page-title">
+            <h1 class="title">查核數據</h1>
+            <p class="subtitle">查看假新聞分析的統計數據和趨勢</p>
+        </div>
+
+        <!-- Time Period Tabs -->
+        <div class="tabs">
+            <div class="tabs-list">
+                <div class="tab">日</div>
+                <div class="tab">週</div>
+                <div class="tab active">月</div>
+                <div class="tab">年</div>
+            </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="grid grid-cols-3">
+            <!-- Analysis Total Card -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">分析總數</h2>
+                    <p class="card-subtitle">所有已分析的新聞數量</p>
+                    <div class="metric">12,486</div>
+                    <div class="trend trend-up">
+                        <i class="fas fa-arrow-up" style="margin-right: 5px;"></i>
+                        較上月增加 8.2%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fake News Comparison Card -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">假新聞比例</h2>
+                    <p class="card-subtitle">被判定為假新聞的比例</p>
+                    <div class="metric">32.7%</div>
+                    <div class="trend trend-down">
+                        <i class="fas fa-arrow-down" style="margin-right: 5px;"></i>
+                        較上月減少 2.1%
+                    </div>
+                </div>
+            </div>
+
+            <!-- Average Credibility Card -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">平均可信度</h2>
+                    <p class="card-subtitle">所有分析結果的平均可信度</p>
+                    <div class="metric">78.4%</div>
+                    <div class="trend trend-up">
+                        <i class="fas fa-arrow-up" style="margin-right: 5px;"></i>
+                        較上月增加 1.3%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Buttons -->
+        <div class="grid grid-cols-3">
+            <button class="button button-primary">
+                <i class="fas fa-chart-line"></i>
+                趨勢分析
+            </button>
+            <button class="button">
+                <i class="fas fa-chart-pie"></i>
+                類別分布
+            </button>
+            <button class="button">
+                <i class="fas fa-globe"></i>
+                來源分析
+            </button>
+        </div>
+
+        <!-- Trend Analysis Card -->
+        <div class="card">
+            <div class="card-content">
+                <h2 class="card-title">假新聞趨勢分析</h2>
+                <p class="card-subtitle">過去一個月的假新聞檢測趨勢</p>
+
+                <div class="chart-placeholder">
+                    <div class="chart-icon">
+                        <i class="fas fa-chart-line fa-4x"></i>
+                    </div>
+                    <p class="chart-text">趨勢圖表將在這裡顯示</p>
+                    <p class="chart-subtext">顯示假新聞檢測數量隨時間的變化</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Cards -->
+        <div class="grid grid-cols-2">
+            <!-- Hot Keywords Card -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">熱門關鍵詞</h2>
+                    <p class="card-subtitle">假新聞中最常出現的關鍵詞</p>
+
+                    <div class="list">
+                        <div class="list-item">
+                            <div class="list-number">1</div>
+                            <span class="list-content">疫苗</span>
+                            <span class="list-percentage">24.3%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">2</div>
+                            <span class="list-content">政府</span>
+                            <span class="list-percentage">18.7%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">3</div>
+                            <span class="list-content">健康</span>
+                            <span class="list-percentage">15.2%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">4</div>
+                            <span class="list-content">科技</span>
+                            <span class="list-percentage">12.8%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Sources Card -->
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">最常被查核的新聞來源</h2>
+                    <p class="card-subtitle">用戶最常提交查核的新聞來源</p>
+
+                    <div class="list">
+                        <div class="list-item">
+                            <div class="list-number">1</div>
+                            <span class="list-content">社群媒體</span>
+                            <span class="list-percentage">42.7%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">2</div>
+                            <span class="list-content">網路新聞平台</span>
+                            <span class="list-percentage">28.3%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">3</div>
+                            <span class="list-content">通訊軟體</span>
+                            <span class="list-percentage">16.9%</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-number">4</div>
+                            <span class="list-content">部落格</span>
+                            <span class="list-percentage">8.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                © 2025 真相守門員 | 畢業專題
+            </div>
+            <div class="footer-links">
+                <a href="about.html">關於我們</a>
+                <a href="#">隱私政策</a>
+                <a href="#">使用條款</a>
+                <a href="contact.html">聯絡我們</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
