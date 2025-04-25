@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>真相守門員</title>
+    <!-- 引入Google字體和Font Awesome圖標 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
@@ -18,6 +19,7 @@
         }
 
         * {
+             /* 初始化元素樣式 */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -25,18 +27,21 @@
         }
 
         body {
+             /* 背景與文字預設色 */
             background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
         }
 
         .container {
+            /* 統一頁面寬度與左右邊距 */
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         header {
+            /* 導覽列樣式：漸層背景、固定於頂部 */
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 1.5rem 0;
@@ -52,7 +57,7 @@
             align-items: center;
         }
 
-        .logo {
+        .logo {/* 網站標誌樣式 */
             font-size: 1.8rem;
             font-weight: 700;
             display: flex;
@@ -60,6 +65,7 @@
         }
 
         .logo-icon {
+             /* 標誌圖標樣式 */
             margin-right: 10px;
             font-size: 2rem;
         }
@@ -94,7 +100,7 @@
             text-align: center;
             margin-bottom: 2rem;
         }
-
+        /* 結果頁面主標題 */
         .result-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
@@ -103,14 +109,14 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
+        /* 結果頁面副標題 */
         .result-header p {
             color: #6c757d;
             max-width: 700px;
             margin: 0 auto;
             font-size: 1.1rem;
         }
-
+        /* 結果摘要卡片 */
         .result-summary {
             background-color: white;
             border-radius: 12px;
@@ -122,13 +128,13 @@
             gap: 2rem;
             align-items: center;
         }
-
+         /* 信任分數區塊 */
         .trust-score {
             flex: 1;
             min-width: 250px;
             text-align: center;
         }
-
+        /* 圓形分數指示器 */
         .score-circle {
             width: 180px;
             height: 180px;
@@ -140,7 +146,7 @@
             margin: 0 auto 1rem;
             position: relative;
         }
-
+        /* 圓形指示器內部白色圓 */
         .score-circle::before {
             content: "";
             position: absolute;
@@ -149,7 +155,7 @@
             border-radius: 50%;
             background-color: white;
         }
-
+         /* 分數數值顯示 */
         .score-value {
             position: relative;
             z-index: 1;
@@ -157,18 +163,18 @@
             font-weight: 700;
             color: var(--warning);
         }
-
+         /* 分數標籤 */
         .score-label {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--dark);
             margin-bottom: 0.5rem;
         }
-
+        /* 分數描述文字 */
         .score-description {
             color: #6c757d;
         }
-
+        /* 下面是不同分數樣式（高:綠色，中:黃色，低:紅） */
         .score-high {
             color: var(--success);
             background: conic-gradient(var(--success) 85%, #ddd 0);
@@ -183,23 +189,23 @@
             color: var(--danger);
             background: conic-gradient(var(--danger) 30%, #ddd 0);
         }
-
+        /* 分析細項區塊 */
         .analysis-breakdown {
             flex: 2;
             min-width: 300px;
         }
-
+        /* 單個分析項目樣式 */
         .breakdown-item {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
-
+        /* 分析項目標籤 */
         .breakdown-label {
             flex: 1;
             font-weight: 500;
         }
-
+        /* 分析項目進度條背景 */
         .breakdown-bar {
             flex: 2;
             height: 12px;
@@ -208,12 +214,12 @@
             overflow: hidden;
             position: relative;
         }
-
+        /* 分析項目進度條填充部分 */
         .breakdown-progress {
             height: 100%;
             border-radius: 6px;
         }
-
+        /* 以下是評分進度條（高:綠色，中:黃色，低:紅） */
         .progress-high {
             background-color: var(--success);
             width: 85%;
@@ -228,14 +234,14 @@
             background-color: var(--danger);
             width: 35%;
         }
-
+        /* 評分數值顯示 */
         .breakdown-value {
             margin-left: 1rem;
             font-weight: 600;
             min-width: 50px;
             text-align: right;
         }
-
+        /* 內容分析區塊 */
         .content-analysis {
             background-color: white;
             border-radius: 12px;
@@ -243,7 +249,7 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
             margin-bottom: 2rem;
         }
-
+        /* 區塊標題樣式 */
         .section-title {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
@@ -251,7 +257,7 @@
             border-bottom: 2px solid #f0f0f0;
             color: var(--dark);
         }
-
+        /* 新聞內容區塊樣式 */
         .news-content {
             background-color: #f9f9f9;
             padding: 1.5rem;
@@ -259,7 +265,7 @@
             margin-bottom: 1.5rem;
             line-height: 1.8;
         }
-
+        /* 內容高亮顯示（） */
         .highlight-suspicious {
             background-color: rgba(217, 4, 41, 0.15);
             padding: 2px 0;
@@ -271,7 +277,7 @@
             padding: 2px 0;
             border-bottom: 2px dashed var(--warning);
         }
-
+        /* 關鍵發現區塊 */
         .key-findings {
             margin-top: 1.5rem;
         }
@@ -283,7 +289,7 @@
             margin-bottom: 1rem;
             border-left: 4px solid #ddd;
         }
-
+         /* 發現項目（邊框） */
         .finding-suspicious {
             border-left-color: var(--danger);
         }
@@ -295,13 +301,13 @@
         .finding-reliable {
             border-left-color: var(--success);
         }
-
+        /* 發現項目標題行樣式 */
         .finding-header {
             display: flex;
             align-items: center;
             margin-bottom: 0.5rem;
         }
-
+         /* 發現項目圖標樣式 */
         .finding-icon {
             margin-right: 0.75rem;
             font-size: 1.2rem;
@@ -316,7 +322,7 @@
             margin-left: 2rem;
             color: #555;
         }
-
+        /* 相關信息來源區塊 */
         .related-sources {
             background-color: white;
             border-radius: 12px;
@@ -376,7 +382,7 @@
         .source-link:hover {
             text-decoration: underline;
         }
-
+         /* 頁腳樣式 */
         footer {
             background: linear-gradient(135deg, #3a86ff, #8338ec);
             color: white;
@@ -407,7 +413,7 @@
         .footer-links a:hover {
             color: var(--primary);
         }
-
+        /* 操作按鈕區域 */
         .action-buttons {
             display: flex;
             justify-content: center;
@@ -453,20 +459,8 @@
             background-color: rgba(58, 134, 255, 0.1);
             transform: translateY(-2px);
         }
-
-        @media (max-width: 768px) {
-            .result-summary {
-                flex-direction: column;
-            }
-            
-            .trust-score, .analysis-breakdown {
-                width: 100%;
-            }
-            
-            .source-cards {
-                grid-template-columns: 1fr;
-            }
-        }
+        
+        
     </style>
 </head>
 <body>
@@ -493,7 +487,7 @@
                 <h1>檢測結果</h1>
                 <p>我們已完成對您提供內容的分析，以下是詳細的真實性評估結果</p>
             </div>
-            
+            <!-- 結果摘要區（包含總體評分和分項評分） -->
             <div class="result-summary">
                 <div class="trust-score">
                     <div class="score-circle">
@@ -502,10 +496,10 @@
                     <div class="score-label">可信度評分</div>
                     <div class="score-description">中等可信度，建議進一步查證</div>
                 </div>
-                
+                <!-- 分析細項評分 -->
                 <div class="analysis-breakdown">
                     <h3 class="section-title">分析細項</h3>
-                    
+                    <!-- 事實準確性評分 -->
                     <div class="breakdown-item">
                         <div class="breakdown-label">事實準確性</div>
                         <div class="breakdown-bar">
@@ -513,7 +507,7 @@
                         </div>
                         <div class="breakdown-value">65%</div>
                     </div>
-                    
+                    <!-- 來源可靠性評分 -->
                     <div class="breakdown-item">
                         <div class="breakdown-label">來源可靠性</div>
                         <div class="breakdown-bar">
@@ -521,7 +515,7 @@
                         </div>
                         <div class="breakdown-value">58%</div>
                     </div>
-                    
+                     <!-- 情緒偏向評分 -->
                     <div class="breakdown-item">
                         <div class="breakdown-label">情緒偏向</div>
                         <div class="breakdown-bar">
@@ -529,7 +523,7 @@
                         </div>
                         <div class="breakdown-value">35%</div>
                     </div>
-                    
+                    <!-- 語境一致性評分 -->
                     <div class="breakdown-item">
                         <div class="breakdown-label">語境一致性</div>
                         <div class="breakdown-bar">
@@ -539,7 +533,7 @@
                     </div>
                 </div>
             </div>
-            
+            <!--以下有些資訊是假設的，我們模型沒訓練好，因此這只是演示及架構-->
             <div class="content-analysis">
                 <h3 class="section-title">內容分析</h3>
                 
