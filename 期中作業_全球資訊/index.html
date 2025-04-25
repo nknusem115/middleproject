@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     
     <title>真相守門員 - 假新聞檢測系統</title>
+    
     <style>
+        /* 主題色定義，方便整站統一風格與日後修改 */
         :root {
             --primary: #3a86ff;
             --secondary: #8338ec;
@@ -17,25 +19,29 @@
         }
 
         * {
+            /* 初始化元素樣式 */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Noto Sans TC', sans-serif;/* 使用 Google Fonts 的台灣正體字型 */
         }
 
         body {
+            /* 背景與文字預設色 */
             background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
         }
 
         .container {
+            /* 統一頁面寬度與左右邊距 */
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         header {
+            /* 導覽列樣式：漸層背景、固定於頂部 */
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 1.5rem 0;
@@ -46,6 +52,7 @@
         }
 
         .header-content {
+            
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -86,6 +93,7 @@
         }
 
         .hero {
+            /* 首頁大圖區塊，含背景圖與文字重疊效果 */
             height: 85vh;
             display: flex;
             align-items: center;
@@ -94,6 +102,7 @@
         }
 
         .hero::before {
+            /* 半透明背景圖層，用來增加視覺層次 */
             content: '';
             position: absolute;
             top: 0;
@@ -126,6 +135,7 @@
         }
 
         .search-box {
+            /* 查詢輸入區塊，帶有陰影與圓角 */
             background-color: white;
             border-radius: 12px;
             padding: 2rem;
@@ -155,6 +165,7 @@
         }
 
         .tab-buttons {
+            /* 切換輸入方式（網址 / 內容）的按鈕列 */
             display: flex;
             margin-bottom: 1rem;
         }
@@ -170,6 +181,7 @@
         }
 
         .tab-button.active {
+            /* 被選中的按鈕樣式 */
             border-color: var(--primary);
             color: var(--primary);
         }
@@ -205,6 +217,7 @@
         }
 
         .btn {
+            /* 所有按鈕的基本樣式 */
             padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 6px;
@@ -215,17 +228,20 @@
         }
 
         .btn-primary {
+            /* 主色按鈕樣式 */
             background-color: var(--primary);
             color: white;
         }
 
         .btn-primary:hover {
+            /* 滑鼠懸停的互動效果 */
             background-color: #2a75e8;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
         }
 
         .features {
+            /* 功能區塊背景色與內距 */
             padding: 4rem 0;
             background-color: #f2f5f9;
         }
@@ -254,6 +270,7 @@
         }
 
         .feature-card {
+             /* 單張功能卡片樣式 */
             background-color: white;
             border-radius: 12px;
             padding: 2rem;
@@ -262,6 +279,7 @@
         }
 
         .feature-card:hover {
+             /* 滑鼠懸停效果，浮起卡片 */
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
@@ -279,6 +297,7 @@
 
         
         footer {
+            /* 頁腳樣式，使用漸層與簡單排列 */
             background: linear-gradient(135deg, #3a86ff, #8338ec);
             color: white;
             padding: 2rem 20px; /* 增加左右內邊距，與 .container 的 padding 保持一致 */
@@ -412,19 +431,19 @@
 
     <script>
         function openTab(tabId) {
-            // 隱藏所有標籤內容
+            // 隱藏所有內容區塊
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // 重設所有標籤按鈕樣式
+           // 移除所有按鈕的 active 樣式
             const tabButtons = document.querySelectorAll('.tab-button');
             tabButtons.forEach(button => {
                 button.classList.remove('active');
             });
             
-            // 顯示選定的標籤內容並激活按鈕
+             // 顯示選中的內容區塊，並設為 active
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
