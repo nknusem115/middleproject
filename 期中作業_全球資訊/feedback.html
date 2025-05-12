@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>意見回饋 - 真相守門員</title>
+    
+    <style>
+        /* 主題色定義，方便整站統一風格與日後修改 */
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #38b000;
+            --danger: #d90429;
+            --warning: #ffbe0b;
+        }
+
+        * {
+            /* 初始化元素樣式 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;/* 使用 Google Fonts 的台灣正體字型 */
+        }
+
+        body {
+            /* 背景與文字預設色 */
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            /* 統一頁面寬度與左右邊距 */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            /* 導覽列樣式：漸層背景、固定於頂部 */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {/* 網站標誌樣式 */
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+             /* 標誌圖標樣式 */
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+         /* 導航菜單樣式 */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        /* 導航菜單連結樣式 */
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+        /* 導航菜單連結懸停效果 */
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 表單頁面主體樣式 */
+        .form-section {
+            padding: 4rem 0;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .form-check-input {
+            margin-right: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .form-check-label {
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+
+        .btn {
+            /* 所有按鈕的基本樣式 */
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            /* 主色按鈕樣式 */
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            /* 滑鼠懸停的互動效果 */
+            background-color: #2a75e8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-secondary:hover {
+            background-color: #dde2e6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* 必填欄位標示 */
+        .required::after {
+            content: '*';
+            color: var(--danger);
+            margin-left: 4px;
+        }
+
+        /* 說明文字樣式 */
+        .form-text {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        footer {
+            /* 頁腳樣式，使用漸層與簡單排列 */
+            background: linear-gradient(135deg, #3a86ff, #8338ec);
+            color: white;
+            padding: 2rem 20px; /* 增加左右內邊距，與 .container 的 padding 保持一致 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px; /* 與 .container 的 max-width 保持一致 */
+            margin: 0 auto; /* 讓 footer 內容居中 */
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-shield-alt logo-icon"></i>
+                真相守門員
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="detection.html">查核數據</a></li>
+                    <li><a href="education.html">教育資源</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="form-section">
+        <div class="container">
+            <div class="page-title">
+                <h1>意見回饋表單</h1>
+                <p>您的回饋是我們進步的動力，請分享您使用真相守門員的體驗與建議</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="feedback-form" action="thankyou.html" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="required">姓名</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">電子郵件</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <small class="form-text">我們不會將您的郵件地址分享給第三方</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">主旨</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-type">回饋類型</label>
+                        <select class="form-control" id="feedback-type" name="feedback-type">
+                            <option value="suggestion">使用建議</option>
+                            <option value="bug">問題回報</option>
+                            <option value="feature">功能請求</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="required">您的回饋內容</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>使用體驗評分</label>
+                        <div class="rating" style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating1" value="1">
+                                <label class="form-check-label" for="rating1">1 (不滿意)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating2" value="2">
+                                <label class="form-check-label" for="rating2">2</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating3" value="3">
+                                <label class="form-check-label" for="rating3">3</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating4" value="4">
+                                <label class="form-check-label" for="rating4">4</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rating" id="rating5" value="5" checked>
+                                <label class="form-check-label" for="rating5">5 (非常滿意)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="subscribe" name="subscribe">
+                        <label class="form-check-label" for="subscribe">
+                            訂閱最新功能更新與新聞媒體素養相關資訊
+                        </label>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="reset" class="btn btn-secondary">重設表單</button>
+                        <button type="submit" class="btn btn-primary">送出回饋</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                © 2025 真相守門員 | 畢業專題
+            </div>
+            <div class="footer-links">
+                <a href="#">隱私政策</a>
+                <a href="#">使用條款</a>
+                <a href="contact.html">聯絡我們</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 表單驗證功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('feedback-form');
+            
+            form.addEventListener('submit', function(event) {
+                let valid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.style.borderColor = 'var(--danger)';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                const emailField = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (emailField.value && !emailRegex.test(emailField.value)) {
+                    valid = false;
+                    emailField.style.borderColor = 'var(--danger)';
+                    alert('請輸入有效的電子郵件地址');
+                }
+                
+                if (!valid) {
+                    event.preventDefault();
+                    alert('請填寫所有必填欄位');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
