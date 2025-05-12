@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>登入系統 - 真相守門員</title>
+    
+    <style>
+        /* 主題色定義，方便整站統一風格與日後修改 */
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #38b000;
+            --danger: #d90429;
+            --warning: #ffbe0b;
+        }
+
+        * {
+            /* 初始化元素樣式 */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;/* 使用 Google Fonts 的台灣正體字型 */
+        }
+
+        body {
+            /* 背景與文字預設色 */
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            /* 統一頁面寬度與左右邊距 */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            /* 導覽列樣式：漸層背景、固定於頂部 */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {/* 網站標誌樣式 */
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+             /* 標誌圖標樣式 */
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+         /* 導航菜單樣式 */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        /* 導航菜單連結樣式 */
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+        /* 導航菜單連結懸停效果 */
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 登入頁面主要內容樣式 */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+
+        .login-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-box h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .login-box p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #6c757d;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.2);
+        }
+
+        .form-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .btn {
+            /* 所有按鈕的基本樣式 */
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary {
+            /* 主色按鈕樣式 */
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            /* 滑鼠懸停的互動效果 */
+            background-color: #2a75e8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(58, 134, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #6c757d;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f2f5f9;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        footer {
+            /* 頁腳樣式，使用漸層與簡單排列 */
+            background: linear-gradient(135deg, #3a86ff, #8338ec);
+            color: white;
+            padding: 2rem 20px; /* 增加左右內邊距，與 .container 的 padding 保持一致 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px; /* 與 .container 的 max-width 保持一致 */
+            margin: 0 auto; /* 讓 footer 內容居中 */
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 2rem;
+                max-width: 90%;
+            }
+
+            .form-action {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .forgot-password {
+                align-self: flex-end;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-shield-alt logo-icon"></i>
+                真相守門員
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="detection.html">查核數據</a></li>
+                    <li><a href="education.html">教育資源</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="login-container">
+        <div class="container">
+            <div class="login-box">
+                <h1>帳號登入</h1>
+                <p>登入您的帳號，使用更多進階功能</p>
+                
+                <form action="dashboard.html" method="POST">
+                    <div class="form-group">
+                        <label for="username">帳號 / Email</label>
+                        <input type="text" id="username" name="username" placeholder="請輸入您的帳號或電子郵件" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">密碼</label>
+                        <input type="password" id="password" name="password" placeholder="請輸入您的密碼" required>
+                    </div>
+                    
+                    <div class="form-action">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">記住我</label>
+                        </div>
+                        <a href="reset-password.html" class="forgot-password">忘記密碼？</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">登入</button>
+                </form>
+                
+                <div class="divider">
+                    <span>或</span>
+                </div>
+                
+                <div class="social-login">
+                    <a href="#" class="social-btn" title="使用Google登入">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="#" class="social-btn" title="使用Facebook登入">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn" title="使用Twitter登入">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+                
+                <a href="register.html" class="btn btn-secondary">註冊新帳號</a>
+                
+                <div class="register-link">
+                    還沒有帳號？ <a href="register.html">立即註冊</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                © 2025 真相守門員 | 畢業專題
+            </div>
+            <div class="footer-links">
+                <a href="#">隱私政策</a>
+                <a href="#">使用條款</a>
+                <a href="contact.html">聯絡我們</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
